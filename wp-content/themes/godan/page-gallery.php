@@ -105,6 +105,10 @@ if (!empty($ordered_ids) && is_array($ordered_ids)) {
                         $medium_url = wp_get_attachment_image_url($thumbnail_id, 'medium_large');
                         $full_url   = wp_get_attachment_image_url($thumbnail_id, 'full');
                         $alt        = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true) ?: $dekoracja->post_title;
+                        // Tytuły dekoracji to nazwy plików (godan-decoration-0501, IMG_1234, hash) - nic nie mówią Google
+                        if (preg_match('/^(godan-decoration|img|dsc|[0-9a-f]{8}-)[\w-]*$/i', $alt)) {
+                            $alt = sprintf('%s – dekoracje balonowe Godan Siedlce, realizacja %d', $title, $index + 1);
+                        }
                     ?>
                         <div class="gallery__item" data-index="<?= $index; ?>">
                             <div class="gallery__item-inner">

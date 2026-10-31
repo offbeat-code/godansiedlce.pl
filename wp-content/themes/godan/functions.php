@@ -297,10 +297,12 @@ function godan_register_typ_dekoracji_taxonomy() {
         ),
         'hierarchical'      => true,
         'public'            => true,
+        // Dekoracje nie mają własnych stron, więc archiwa kategorii były puste ("Nothing Found") i trafiały do mapy witryny
+        'publicly_queryable' => false,
         'show_ui'           => true,
         'show_admin_column' => true,
-        'show_in_nav_menus' => true,
-        'rewrite'           => array('slug' => 'kategoria-dekoracji'),
+        'show_in_nav_menus' => false,
+        'rewrite'           => false,
     ));
 }
 add_action('init', 'godan_register_typ_dekoracji_taxonomy');
@@ -368,3 +370,22 @@ function godan_redirect_category_archives() {
 }
 add_action('template_redirect', 'godan_redirect_category_archives');
 
+
+/**
+ * Zdjęcia w treści wpisów bez opisu alternatywnego dostają tytuł wpisu
+ *
+ * @param string $image   Tag <img>.
+ * @param string $context Kontekst (the_content itp.).
+ * @return string
+ */
+function godan_fill_empty_content_img_alt($image, $context) {
+    if (!preg_match('/\salt=(""|\'\')/', $image) && preg_match('/\salt=/', $image)) {
+        return $image;
+    }
+    $alt = esc_attr(wp_strip_all_tags(get_the_title()) . ' – Godan Siedlce');
+    if (preg_match('/\salt=/', $image)) {
+        return preg_replace('/\salt=(""|\'\')/', ' alt="' . $alt . '"', $image, 1);
+    }
+    return preg_replace('/<img\s/', '<img alt="' . $alt . '" ', $image, 1);
+}
+add_filter('wp_content_img_tag', 'godan_fill_empty_content_img_alt', 10, 2);

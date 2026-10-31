@@ -10,7 +10,7 @@ get_header();
 $blog_page_id = get_option('page_for_posts');
 $headline     = get_the_title($blog_page_id);
 
-get_template_part('template-parts/section-hero', null, ['title' => $headline]);
+get_template_part('template-parts/section-hero', null, ['title' => $headline, 'tag' => 'p']);
 
 while (have_posts()) : the_post();
     $categories = get_the_category();

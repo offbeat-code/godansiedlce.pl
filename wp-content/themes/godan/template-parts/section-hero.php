@@ -8,12 +8,14 @@
  */
 
 $title = $args['title'] ?? '';
+// Na stronie wpisu H1 to tytuł wpisu, więc nagłówek sekcji nie może być drugim H1
+$tag = ($args['tag'] ?? 'h1') === 'p' ? 'p' : 'h1';
 ?>
 
 <section class="section-hero">
     <div class="section-hero__container container">
         <?php if ($title): ?>
-            <h1 class="section-hero__title"><?= esc_html($title); ?></h1>
+            <<?= $tag ?> class="section-hero__title"><?= esc_html($title); ?></<?= $tag ?>>
         <?php endif; ?>
     </div>
 
