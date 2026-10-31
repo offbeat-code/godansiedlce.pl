@@ -28,8 +28,11 @@
     <?php
     // Get header data from ACF
     $logo = get_field('logo_header', 'global_content');
-    $logo_url = $logo['url'] ?? '';
-    $alt_logo = $logo['alt'] ?? 'Logo';
+    // Logo is displayed at max 9rem, so the 300px "medium" size covers retina
+    $logo_url = $logo['sizes']['medium'] ?? ($logo['url'] ?? '');
+    $logo_w   = $logo['sizes']['medium-width'] ?? ($logo['width'] ?? '');
+    $logo_h   = $logo['sizes']['medium-height'] ?? ($logo['height'] ?? '');
+    $alt_logo = !empty($logo['alt']) ? $logo['alt'] : get_bloginfo('name');
     $cta_link = get_field('reference_header', 'global_content');
     $phone_header = get_field('phone_header', 'global_content');
     ?>
@@ -42,7 +45,7 @@
                 <?php if ($logo_url): ?>
                     <div class="nav-desktop__logo">
                         <a href="<?= esc_url( home_url('/#') ); ?>" class="nav-desktop__logo-link">
-                            <img src="<?= esc_url($logo_url); ?>"
+                            <img src="<?= esc_url($logo_url); ?>" width="<?= esc_attr($logo_w); ?>" height="<?= esc_attr($logo_h); ?>"
                                  alt="<?= esc_attr($alt_logo); ?>"
                                  class="nav-desktop__logo-img">
                         </a>
@@ -89,7 +92,7 @@
             <div class="nav-mobile__bar">
                 <?php if ($logo_url): ?>
                     <a href="<?= esc_url( home_url('/') ); ?>" class="nav-mobile__logo">
-                        <img src="<?= esc_url($logo_url); ?>"
+                        <img src="<?= esc_url($logo_url); ?>" width="<?= esc_attr($logo_w); ?>" height="<?= esc_attr($logo_h); ?>"
                              alt="<?= esc_attr($alt_logo); ?>"
                              class="nav-mobile__logo-img">
                     </a>
@@ -108,7 +111,7 @@
                 <div class="nav-mobile__drawer-header">
                     <?php if ($logo_url): ?>
                         <a href="<?= esc_url( home_url('/') ); ?>" class="nav-mobile__drawer-logo">
-                            <img src="<?= esc_url($logo_url); ?>" alt="<?= esc_attr($alt_logo); ?>">
+                            <img src="<?= esc_url($logo_url); ?>" width="<?= esc_attr($logo_w); ?>" height="<?= esc_attr($logo_h); ?>" alt="<?= esc_attr($alt_logo); ?>">
                         </a>
                     <?php endif; ?>
                     <button class="nav-mobile__close" aria-label="<?php esc_attr_e('Zamknij menu', 'godan'); ?>">

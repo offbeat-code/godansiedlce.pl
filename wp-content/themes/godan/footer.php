@@ -50,7 +50,7 @@ $social_icons = [
             <div class="footer__grid">
                 <div class="footer__about">
                     <?php if ($logo): ?>
-                        <img src="<?= esc_url($logo['url']); ?>" alt="<?= esc_attr($logo['alt'] ?: 'Logo'); ?>" class="footer__logo">
+                        <img src="<?= esc_url($logo['sizes']['medium_large'] ?? $logo['url']); ?>" width="<?= esc_attr($logo['sizes']['medium_large-width'] ?? $logo['width']); ?>" height="<?= esc_attr($logo['sizes']['medium_large-height'] ?? $logo['height']); ?>" alt="<?= esc_attr($logo['alt'] ?: get_bloginfo('name')); ?>" class="footer__logo">
                     <?php endif; ?>
 
                     <?php if ($description): ?>

@@ -211,11 +211,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var formData = new FormData(contactForm);
             formData.append('action', 'godan_submit_contact');
-            formData.append('nonce', godanContact.nonce);
 
-            fetch(godanContact.ajaxUrl, {
-                method: 'POST',
-                body: formData
+            // Nonce z HTML może być przeterminowany (strona z cache), więc pobieramy świeży
+            fetch(godanContact.ajaxUrl + '?action=godan_contact_nonce', { credentials: 'same-origin', cache: 'no-store' })
+            .then(function(response) { return response.json(); })
+            .then(function(result) { return result.success ? result.data.nonce : godanContact.nonce; })
+            .catch(function() { return godanContact.nonce; })
+            .then(function(nonce) {
+                formData.append('nonce', nonce);
+                return fetch(godanContact.ajaxUrl, {
+                    method: 'POST',
+                    body: formData
+                });
             })
             .then(function(response) { return response.json(); })
             .then(function(result) {
