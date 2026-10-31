@@ -1,0 +1,28 @@
+.fab {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 1000;
+  width: 45px;
+  height: 45px;
+  background: #0A7CFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: color('white');
+  box-shadow: 0 4px 20px rgba(10, 124, 255, 0.4);
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:visited,
+  &:active {
+    color: color('white');
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(10, 124, 255, 0.5);
+  }
+
+}

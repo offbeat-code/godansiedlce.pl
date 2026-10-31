@@ -1,0 +1,106 @@
+.testimonials {
+  padding: var(--section-padding) 0;
+  background-color: color('secondary-50');
+  position: relative;
+  overflow: hidden;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    @include respond-to(sm) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__slider {
+    width: calc(100% - 64px);
+    margin: 0 auto;
+
+    @include respond-to(lg) {
+      width: calc(100% - 48px);
+    }
+
+    @include respond-to(sm) {
+      width: calc(100% - 32px);
+    }
+
+    .swiper-wrapper {
+      align-items: stretch;
+    }
+
+    .swiper-slide {
+      height: auto;
+    }
+  }
+
+  &__card {
+    display: flex!important;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    background: color('white');
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+    @include respond-to(sm) {
+      padding: 2rem;
+    }
+  }
+
+  &__content {
+    margin-bottom: 2rem;
+  }
+
+  &__stars {
+    color: color('primary-500');
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
+
+  &__text {
+    color: color('gray-700');
+    font-family: $ff-secondary;
+    font-size: 1rem;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+
+    @include respond-to(sm) {
+      font-size: var(--fs-sm);
+    }
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, color('primary-200'), color('secondary-200'));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $ff-primary;
+    font-weight: 600;
+    color: color('secondary-700');
+    flex-shrink: 0;
+  }
+
+  &__name {
+    font-family: $ff-primary;
+    font-weight: 600;
+    color: color('gray-900');
+  }
+
+  &__role {
+    color: color('gray-500');
+    font-size: var(--fs-sm);
+  }
+}

@@ -1,0 +1,92 @@
+@keyframes section-hero-wave-float {
+  0%, 100% { transform: translateX(0) rotate(180deg); }
+  50% { transform: translateX(-2%) rotate(180deg); }
+}
+
+.section-hero {
+  position: relative;
+  padding: 9rem 0 10rem;
+  background: linear-gradient(
+    160deg,
+    color("secondary-700") 0%,
+    color("secondary-600") 40%,
+    color("primary-600") 100%
+  );
+  text-align: center;
+  overflow: hidden;
+
+  @include respond-to(md) {
+    padding: 7rem 0 8rem;
+  }
+
+  @include respond-to(sm) {
+    padding: 6rem 0 5rem;
+  }
+
+  &__container {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__title {
+    color: color("white");
+    font-size: var(--fs-h1);
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+
+    @include respond-to(sm) {
+      font-size: var(--fs-h2);
+    }
+  }
+
+  &__wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+    line-height: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    @include respond-to(md) {
+      height: 60px;
+    }
+
+    @include respond-to(sm) {
+      height: 40px;
+    }
+  }
+
+  &__wave-layer {
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 110%;
+    height: 100%;
+    display: block;
+
+    path {
+      fill: color("white");
+    }
+
+    &--1 {
+      opacity: 0.25;
+      animation: section-hero-wave-float 7s ease-in-out infinite;
+    }
+
+    &--2 {
+      opacity: 0.5;
+      animation: section-hero-wave-float 5s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+
+    &--3 {
+      opacity: 1;
+      animation: section-hero-wave-float 4s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+  }
+}

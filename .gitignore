@@ -1,0 +1,17 @@
+# Repo trzyma tylko własny kod - WordPress, wtyczki i uploady żyją na serwerze
+/*
+!/.gitignore
+!/wp-content/
+/wp-content/*
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/godan/
+!/wp-content/mu-plugins/
+/wp-content/mu-plugins/*
+!/wp-content/mu-plugins/godan-hardening.php
+
+.DS_Store
+Thumbs.db
+.idea/
+.claude/
+node_modules/
