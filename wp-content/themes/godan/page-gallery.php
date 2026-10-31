@@ -69,6 +69,7 @@ if (!empty($ordered_ids) && is_array($ordered_ids)) {
                 </div>
             <?php endif; ?>
 
+            <?php if ($dekoracje || !get_field('seo_content')): ?>
             <a href="#galeria" class="gallery-hero__button btn btn--secondary">
                 Zobacz galerię
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -76,6 +77,7 @@ if (!empty($ordered_ids) && is_array($ordered_ids)) {
                     <polyline points="19 12 12 19 5 12"/>
                 </svg>
             </a>
+            <?php endif; ?>
         </div>
 
         <div class="gallery-hero__wave" aria-hidden="true">
@@ -91,6 +93,11 @@ if (!empty($ordered_ids) && is_array($ordered_ids)) {
         </div>
     </section>
 
+    <?php
+    // Pusta galeria z napisem "Brak dekoracji" psuje stronę, która ma już opis usługi - wtedy ją pomijamy
+    $hide_empty_gallery = !$dekoracje && get_field('seo_content');
+    ?>
+    <?php if (!$hide_empty_gallery): ?>
     <!-- Gallery Section -->
     <section id="galeria" class="gallery">
         <div class="container">
@@ -139,6 +146,35 @@ if (!empty($ordered_ids) && is_array($ordered_ids)) {
             <?php endif; ?>
         </div>
     </section>
+    <?php endif; ?>
+
+    <?php
+    // Opis usługi i FAQ pod galerią - sekcje pojawiają się tylko gdy pola są wypełnione
+    $seo_headline = get_field('seo_headline');
+    $seo_content  = get_field('seo_content');
+    $seo_faq      = get_field('seo_faq');
+    ?>
+    <?php if ($seo_content): ?>
+        <section class="gallery-content<?= $hide_empty_gallery ? ' gallery-content--standalone' : ''; ?>">
+            <div class="gallery-content__container container">
+                <?php if ($seo_headline): ?>
+                    <h2 class="gallery-content__headline headline"><?= esc_html($seo_headline); ?></h2>
+                <?php endif; ?>
+                <div class="gallery-content__body">
+                    <?= wp_kses_post($seo_content); ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php if ($seo_faq):
+        $module = [
+            'tagline'   => 'FAQ',
+            'headline'  => 'Najczęstsze pytania',
+            'faq_items' => $seo_faq,
+        ];
+        include get_template_directory() . '/modules/faq.php';
+    endif; ?>
 
     <!-- Lightbox -->
     <div class="gallery__lightbox" aria-hidden="true">

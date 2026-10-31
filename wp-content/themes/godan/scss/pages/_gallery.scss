@@ -376,3 +376,78 @@
         }
     }
 }
+
+// Opis usługi pod galerią (pola seo_headline / seo_content)
+.gallery-content {
+    padding: 0 0 var(--section-padding);
+
+    // Bez galerii nad sekcją (pusta kategoria) - własny odstęp od nagłówka strony
+    &--standalone {
+        padding-top: var(--section-padding);
+    }
+
+    &__container {
+        max-width: 52rem;
+    }
+
+    &__headline {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    &__body {
+        h2 {
+            font-family: $ff-primary;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: color('gray-900');
+            margin: 2.5rem 0 1rem;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-family: $ff-primary;
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: color('gray-900');
+            margin: 2rem 0 0.75rem;
+            line-height: 1.3;
+        }
+
+        p {
+            font-family: $ff-secondary;
+            font-size: 1.0625rem;
+            color: color('gray-700');
+            line-height: 1.8;
+            margin: 0 0 1.5rem;
+        }
+
+        a {
+            color: color('primary-500');
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        ul, ol {
+            margin: 0 0 1.5rem 1.5rem;
+            padding: 0;
+
+            li {
+                font-family: $ff-secondary;
+                font-size: 1.0625rem;
+                color: color('gray-700');
+                line-height: 1.8;
+                margin-bottom: 0.5rem;
+                list-style: disc;
+            }
+        }
+
+        ol li {
+            list-style: decimal;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+    }
+}
