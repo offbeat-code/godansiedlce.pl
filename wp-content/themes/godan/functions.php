@@ -405,6 +405,45 @@ function godan_schema_organization_contact($data) {
     if ($description && empty($data['description'])) {
         $data['description'] = $description;
     }
+
+    // Sklep stacjonarny - dane jak w polityce prywatności i na mapie w stopce
+    $data['@type']         = ['Organization', 'Store'];
+    $data['alternateName'] = 'GoDan - Strefa Uśmiechu';
+    $data['address']       = [
+        '@type'           => 'PostalAddress',
+        'streetAddress'   => 'ul. Fryderyka Chopina 3',
+        'postalCode'      => '08-110',
+        'addressLocality' => 'Siedlce',
+        'addressCountry'  => 'PL',
+    ];
+    $data['geo'] = [
+        '@type'     => 'GeoCoordinates',
+        'latitude'  => 52.168738,
+        'longitude' => 22.268154,
+    ];
+
+    $map = function_exists('get_field') ? get_field('link_map', 'global_content') : '';
+    if ($map) {
+        $data['hasMap'] = $map;
+    }
+
+    // Godziny z pola, które wyświetla stopka, np. "10:00–18:00"; "Zamknięte" pomijamy
+    $hours = function_exists('get_field') ? (array) get_field('opening_hours', 'global_content') : [];
+    $specs = [];
+    foreach ($hours as $day => $value) {
+        if (preg_match('/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/u', (string) $value, $m)) {
+            $specs[] = [
+                '@type'     => 'OpeningHoursSpecification',
+                'dayOfWeek' => 'https://schema.org/' . ucfirst($day),
+                'opens'     => $m[1],
+                'closes'    => $m[2],
+            ];
+        }
+    }
+    if ($specs) {
+        $data['openingHoursSpecification'] = $specs;
+    }
+
     return $data;
 }
 add_filter('wpseo_schema_organization', 'godan_schema_organization_contact');
