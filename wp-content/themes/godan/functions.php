@@ -389,3 +389,22 @@ function godan_fill_empty_content_img_alt($image, $context) {
     return preg_replace('/<img\s/', '<img alt="' . $alt . '" ', $image, 1);
 }
 add_filter('wp_content_img_tag', 'godan_fill_empty_content_img_alt', 10, 2);
+
+/**
+ * Telefon i opis firmy w schema Organization (darmowy Yoast ich nie wypisuje, choć ma pola w ustawieniach)
+ *
+ * @param array $data Dane grafu Organization.
+ * @return array
+ */
+function godan_schema_organization_contact($data) {
+    $phone = function_exists('get_field') ? get_field('phone_header', 'global_content') : '';
+    if ($phone && empty($data['telephone'])) {
+        $data['telephone'] = $phone;
+    }
+    $description = class_exists('WPSEO_Options') ? WPSEO_Options::get('org-description') : '';
+    if ($description && empty($data['description'])) {
+        $data['description'] = $description;
+    }
+    return $data;
+}
+add_filter('wpseo_schema_organization', 'godan_schema_organization_contact');

@@ -229,6 +229,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (result.success) {
                     showAlert('success', result.data.message);
                     contactForm.reset();
+                    // Zdarzenie dla Google Analytics (oznaczone w GA jako kluczowe) - liczy wysłane zapytania
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'generate_lead', { form_name: 'kontakt', page_path: window.location.pathname });
+                    }
                     if (confetti) {
                         confetti.classList.add('is-celebrating');
                         setTimeout(function() {
