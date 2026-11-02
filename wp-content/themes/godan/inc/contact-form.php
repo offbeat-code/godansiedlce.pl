@@ -269,13 +269,13 @@ function godan_build_contact_email_html($data, $admin_url) {
                                 </tr>
                                 <tr>
                                     <td style="<?= $label ?>">E-mail</td>
-                                    <td style="<?= $value ?>"><a href="<?= $email_a ?>" style="color:#672b83;text-decoration:none;font-weight:600;"><?= $email ?></a></td>
+                                    <td style="<?= $value ?>"><a href="<?= $email_a ?>" style="color:#f18825;text-decoration:none;font-weight:600;"><?= $email ?></a></td>
                                 </tr>
                                 <tr>
                                     <td style="<?= $label ?>">Telefon</td>
                                     <td style="<?= $value ?>">
                                         <?php if ($phone_a): ?>
-                                            <a href="<?= $phone_a ?>" style="color:#672b83;text-decoration:none;font-weight:600;"><?= $phone ?></a>
+                                            <a href="<?= $phone_a ?>" style="color:#f18825;text-decoration:none;font-weight:600;"><?= $phone ?></a>
                                         <?php else: ?>
                                             <span style="color:#9ca3af;">— nie podano —</span>
                                         <?php endif; ?>
